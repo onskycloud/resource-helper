@@ -6,21 +6,15 @@
 
 Resource helper support for parser data from resource service.
 
-# Getting Started!
+## Getting Started!
 
-  #### Model input
   ```
-	var toMap map[string]interface{}
-	var result map[string]interface{}
+	resources := []string{"*"}
 
-	// handle bussiness here
-
-	conv := marshaller.ConventionalMarshaller{Value: toMap}
-	b, err := conv.MarshalJSON()
-	if err != nil {
+	result, err := GetResourceIds(resources)
+	if err != nil || result == nil {
 		// handle error here
 	}
-	json.Unmarshal(b, &result)
   ```
 
 ### Installation
@@ -30,7 +24,7 @@ Request handler requires [Go](https://golang.org/) v1.11+ to run.
 Install the package.
 
 ```sh
-$ go get github.com/onskycloud/marshaller
+$ go get github.com/onskycloud/resource-helper
 ```
 
 #### Kubernetes + Google Cloud

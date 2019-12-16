@@ -2,8 +2,10 @@ package resourcehelper
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
+
 // ItemActionCache item action in cache
 type ItemActionCache struct {
 	Name         string `json:"name,omitempty"`
@@ -11,6 +13,7 @@ type ItemActionCache struct {
 	Type         string `json:"type,omitempty"`
 	Service      string `json:"service,omitempty"`
 }
+
 // ResourceItem response data
 type ResourceItem struct {
 	Patrition      string
@@ -20,11 +23,13 @@ type ResourceItem struct {
 	ResourceType   string
 	Resource       string
 }
+
 // ToString convert resource item to resource orn
 func (r *ResourceItem) ToString() string {
 	resourceFormatStr := `orn:%s:%s:%s:%s:%s/%s`
 	return fmt.Sprintf(resourceFormatStr, r.Patrition, r.Service, r.Region, r.CustomerNumber, r.ResourceType, r.Resource)
 }
+
 // GetResourceIds get list resources id from list resource string
 func GetResourceIds(resourceStr []string) ([]string, error) {
 	var resourceIds []string
@@ -45,6 +50,7 @@ func GetResourceIds(resourceStr []string) ([]string, error) {
 	}
 	return resourceIds, nil
 }
+
 // GetResourceFormat get resource format
 // name of policy           info.Service      info.ResourceType
 // iot:all                     iot               policy
@@ -69,11 +75,12 @@ func GetResourceFormat(resourceOrn string, info *ItemActionCache, customerNumber
 	}
 	//by pass check format if resourceOrn  "*"
 	if resourceOrn != "" {
-		result = genResourceItem(resourceOrn)
+		result = GenResourceItem(resourceOrn)
 
 	}
 	return result
 }
+
 // ParseResource return values
 //- bool : false if source, origin resource not match format or source is not match origin
 //- source in ResourceItem struct
@@ -98,6 +105,7 @@ func ParseResource(resourceOrn string, originalResource string, info *ItemAction
 	return result, source, original
 
 }
+
 // GenResourceItem parser resource from resource orn
 func GenResourceItem(resourceOrn string) *ResourceItem {
 	var result *ResourceItem
@@ -150,6 +158,7 @@ func checkResourceSubItem(source, original string, isExact bool) bool {
 	}
 	return source == original
 }
+
 // Contains contain an string item in string slice
 func Contains(s []string, e string) bool {
 	for _, a := range s {

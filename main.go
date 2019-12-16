@@ -24,7 +24,7 @@ func GetResourceIds(resourceStr []string) ([]string, error) {
 		if r == nil {
 			continue
 		}
-		if contains(resourceIds, r.Resource) {
+		if Contains(resourceIds, r.Resource) {
 			continue
 		}
 		resourceIds = append(resourceIds, r.Resource)
@@ -72,7 +72,8 @@ func GetResourceFormat(resourceOrn string) *ResourceItem {
 	}
 	return result
 }
-func contains(s []string, e string) bool {
+// Contains contain an string item in string slice
+func Contains(s []string, e string) bool {
 	for _, a := range s {
 		if a == e {
 			return true
